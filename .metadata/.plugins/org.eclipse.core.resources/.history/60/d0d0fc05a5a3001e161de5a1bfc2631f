@@ -1,0 +1,136 @@
+package com.naver.controller;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.naver.domain.AttachVO;
+import com.naver.domain.CompanyVO;
+import com.naver.domain.TradeVO;
+import com.naver.domain.TradeCriteria;
+import com.naver.domain.PageDTO;
+import com.naver.service.CompanyService;
+import com.naver.service.TradeService;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+
+@Controller
+@Log4j
+@RequestMapping("/admin/trade/*")
+@AllArgsConstructor
+public class TradeContoller {
+	
+	private TradeService service;
+	private CompanyService companyservice;
+
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/list")
+	public void list(TradeCriteria cri, Model model) {
+		
+		model.addAttribute("list", service.getList(cri));
+		
+		int total = service.getTotal(cri);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+		//페이지별 시작번호
+		total = (total -((cri.getPageNum()-1)*cri.getAmount()))+1;
+		
+		model.addAttribute("total", total);
+		
+		String ourCompanyName = "경북직업전문학교";
+		//직장 정보 조회
+		model.addAttribute("company", companyservice.get(ourCompanyName));
+		model.addAttribute("active", "trade");
+	}
+
+	
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/register")
+	public String register(TradeVO trade) {
+		
+		service.register(trade);
+		
+		return "redirect:/admin/trade/list";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/register")
+	public void register(Model model) {
+		String ourCompanyName = "경북직업전문학교";
+		//직장 정보 조회
+		model.addAttribute("company", companyservice.get(ourCompanyName));
+		
+		model.addAttribute("active", "trade");
+	}
+	
+	
+	@GetMapping({"/get", "/modify"})
+	public void get(@RequestParam("tno") Long tno, 
+				@ModelAttribute("cri") TradeCriteria cri, Model model) {
+		model.addAttribute("trade", service.get(tno));
+		model.addAttribute("active", "trade");
+	}
+	
+	@PostMapping("/modify")
+	public String modify(TradeVO trade, 
+				@ModelAttribute("cri") TradeCriteria cri, RedirectAttributes rttr) {
+		
+		if(service.modify(trade)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+			
+		return "redirect:/admin/trade/get" + cri.getGetLink();
+	}
+	
+	/**
+	 * 게시글 삭제
+	 * @param tno
+	 * @param cri
+	 * @param rttr
+	 * @return
+	 */
+	@PostMapping("/remove")
+	public String remove(TradeVO trade, 
+				@ModelAttribute("cri") TradeCriteria cri, RedirectAttributes rttr, String writer) {
+		
+		//데이터베이스상에서 해당 게시물과 첨부파일 데이터 삭제
+		if(service.remove(trade)) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		
+		
+		return "redirect:/admin/trade/list" + cri.getListLink();
+	}
+	
+	@GetMapping("/{supplyer}")
+	public ResponseEntity<List<CompanyVO>> getCompanyList(@PathVariable("supplyer") String supplyer){
+		return new ResponseEntity<List<CompanyVO>>(service.getCompanyLIst(supplyer), HttpStatus.OK);
+	}
+
+	
+}

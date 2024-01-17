@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.DiaryMapper">
+
+	<insert id="insert">
+		INSERT INTO tbl_diary(groupId, title, start, end, url, allDay, writer)
+		VALUES(#{groupId}, #{title}, #{start}, #{end}, #{url}, #{allDay}, #{writer});
+	</insert>
+	
+	<select id="getListPage" resultType="com.naver.domain.DiaryVO">
+		SELECT * FROM tbl_diary;
+	</select>
+	
+	
+	<select id="read" resultType="com.naver.domain.DiaryVO">
+		SELECT * FROM tbl_diary WHERE dno = #{dno}
+	</select>
+	
+	<update id="update">
+		UPDATE tbl_diary SET groupId = #{groupId}, title = #{title}, start = #{start}, end = #{end}, 
+		url = #{url}, allDay = #{allDay}
+		WHERE dno = #{dno}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM tbl_diary WHERE dno = #{dno}
+	</delete>
+</mapper>
+
+
+

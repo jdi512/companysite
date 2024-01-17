@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.MasterMapper">
+
+
+	<sql id="criteria">
+		<if test="majorCode != null and majorCode != ''">
+			AND majorCode LIKE concat('%',#{majorCode},'%')	
+		</if>
+		<if test="majorName != null and majorName != ''">
+			AND majorName LIKE concat('%',#{majorName},'%')	
+		</if>
+		<if test="detailedCode != null and detailedCode != ''">
+			AND detailedCode LIKE concat('%',#{detailedCode},'%')	
+		</if>
+		<if test="detailedName != null and detailedName != ''">
+			AND detailedName LIKE concat('%',#{detailedName},'%')	
+		</if>
+	</sql>
+
+
+
+	<select id="getTotalCount" resultType="Long">
+
+		select count(*) from tbl_master
+		where 1
+		<include refid="criteria"></include>
+	</select>
+
+	<select id="getListWithPaging"
+		resultType="com.naver.domain.MasterVO">
+
+		select *
+		from tbl_master
+		where 1
+		<include refid="criteria"></include>
+		
+		ORDER BY seq ASC
+		LIMIT #{paging} , #{amount}
+
+	</select>
+	<select id="getBizItems" resultType="com.naver.domain.MasterVO">
+	select detailedCode, detailedName
+	from tbl_master
+	WHERE detailedCode like concat(${subCode},'__')
+	ORDER BY detailedCode
+	</select>
+</mapper>
+
+
+

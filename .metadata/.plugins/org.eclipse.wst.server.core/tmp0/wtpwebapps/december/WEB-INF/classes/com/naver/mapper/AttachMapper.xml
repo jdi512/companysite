@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.AttachMapper">
+
+	<insert id="insert">
+		insert into tbl_attach (uuid, uploadPath, fileName, fileType, boardId, bno)
+		values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{boardId}, #{bno})
+	</insert>
+	
+	<delete id="delete">
+		delete from tbl_attach WHERE uuid = #{uuid}
+	</delete>
+	
+	<delete id="deleteAll">
+		delete from tbl_attach WHERE boardId = #{boardId} AND bno = #{bno}
+	</delete>
+	
+	<select id="findByBno" resultType="com.naver.domain.AttachVO">
+		SELECT * FROM tbl_attach WHERE boardId = #{boardId} AND bno = #{bno}
+	</select>
+	
+	
+	<select id="getOldFiles" resultType="com.naver.domain.AttachVO">
+		SELECT * FROM tbl_attach 
+		WHERE uploadPath = DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY),'%Y\\%m\\%d')
+	</select>
+</mapper>
+
+
+

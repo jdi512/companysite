@@ -1,0 +1,447 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="includes/header.jsp"%>
+
+<section class="cta" data-aos="fade-up" data-aos-delay="0">
+	<div class="container">
+		<div
+			class="cta-content d-xl-flex align-items-center justify-content-around text-center text-xl-left">
+			<div class="content" data-aos="fade-right" data-aos-delay="200">
+				<h2>회사 소식을 보고 싶다면</h2>
+				<p>지금 바로 회사 소식을 구독하세요</p>
+			</div>
+			<div class="subscribe-btn" data-aos="fade-left" data-aos-delay="400"
+				data-aos-offset="0">
+				<a href="/about" class="btn btn-primary">뉴스레터 구독하기</a>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="featured">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6" data-aos="fade-left" data-aos-delay="400"
+				data-aos-duration="800">
+				<div class="title text-center">
+					<h1 class="title-primary">weather</h1>
+				</div>
+				<div>
+					<b class="row weather"></b>
+				</div>
+			</div>
+			<div class="col-md-6" data-aos="fade-right" data-aos-delay="400"
+				data-aos-duration="800">
+				<div class="title text-center">
+					<h1 class="title-primary">Star</h1>
+				</div>
+				<div>
+					<iframe width="480" height="270"
+						src="https://www.youtube.com/embed/LCBsfLaJl-A?si=BE5AZkYzbogGMOq4"
+						title="YouTube video player" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+<section class="testimonial-and-clients">
+	<div class="container">
+		<div class="testimonials">
+			<div class="swiper-container test-slider">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide text-center">
+						<div class="row">
+							<div class="offset-lg-1 col-lg-10">
+								<div class="test-img" data-aos="fade-up" data-aos-delay="0"
+									data-aos-offset="0">
+									<img src="resources/dist/images/star.png" alt="Testimonial 1">
+								</div>
+								<h5 data-aos="fade-up" data-aos-delay="200"
+									data-aos-duration="600" data-aos-offset="0">star</h5>
+								<p data-aos="fade-up" data-aos-delay="600"
+									data-aos-duration="600" data-aos-offset="0">
+									Twinkle, twinkle little star<br> How I wonder what you are<br>
+									Up above the world so high<br> Like a diamond in the sky<br>
+									Twinkle, twinkle little star<br> How I wonder what you are
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="test-pagination"></div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="recent-posts">
+	<div class="container">
+		<h1 class="title-primary text-center">Event</h1>
+		<div class="row" id="daumbook"></div>
+		<div class="text-center">
+			<a href="http://www.daum.net" class="btn btn-primary"
+				id="remain-time"></a>
+		</div>
+	</div>
+</section>
+<section class="cta cta2" data-aos="fade-up" data-aos-delay="0">
+	<div class="container">
+		<div
+			class="cta-content d-xl-flex align-items-center justify-content-around text-center text-xl-left">
+			<div class="content" data-aos="fade-right" data-aos-delay="200">
+				<h2>저희 회사의 소식을 알고 싶다면</h2>
+			</div>
+			<div class="subscribe-btn" data-aos="fade-left" data-aos-delay="400"
+				data-aos-offset="0">
+				<a href="/about" class="btn btn-primary">회사 소식 구독</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+<script>
+//위 경도 찾기
+function onGeolocationSuccess(position) {
+    lati = position.coords.latitude;
+    long = position.coords.longitude;
+}
+function onGeolocationFail(error) {
+    alert("GPS 연결이 힘듭니다.");
+}
+if (navigator.geolocation) {
+    var positionOptions = {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000
+    };
+    navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationFail, positionOptions);
+
+}
+
+//서비스 key 입력
+key = "ho5ZzWHhC23tx5jSARHsEQdNvJY0fvloxEjtNOA39cLoKzXVaIuEyFPIwCpGm2uN52UF8PuwJF%2BSaStXbsHTBw%3D%3D";
+
+//위, 경도 -> 기상청 X,Y 좌표 변환
+function dfsXyConv(code, v1, v2) {
+    const { PI, tan, log, cos, pow, floor, sin, sqrt, atan, abs, atan2 } = Math
+
+    const RE = 6371.00877
+    const GRID = 5.0
+    const SLAT1 = 30.0
+    const SLAT2 = 60.0
+    const OLON = 126.0
+    const OLAT = 38.0
+    const XO = 43
+    const YO = 136
+
+    const DEGRAD = PI / 180.0
+    const RADDEG = 180.0 / PI
+
+    const re = RE / GRID
+    const slat1 = SLAT1 * DEGRAD
+    const slat2 = SLAT2 * DEGRAD
+    const olon = OLON * DEGRAD
+    const olat = OLAT * DEGRAD
+
+    let sn = tan(PI * 0.25 + slat2 * 0.5) / tan(PI * 0.25 + slat1 * 0.5)
+    sn = log(cos(slat1) / cos(slat2)) / log(sn)
+    let sf = tan(PI * 0.25 + slat1 * 0.5)
+    sf = pow(sf, sn) * cos(slat1) / sn
+    let ro = tan(PI * 0.25 + olat * 0.5)
+    ro = re * sf / pow(ro, sn)
+    const rs = {}
+    let ra, theta
+    if (code === 'toXY') {
+        rs.lat = v1
+        rs.lon = v2
+        ra = tan(PI * 0.25 + (v1) * DEGRAD * 0.5)
+        ra = re * sf / pow(ra, sn)
+        theta = v2 * DEGRAD - olon
+        if (theta > PI) theta -= 2.0 * PI
+        if (theta < -PI) theta += 2.0 * PI
+        theta *= sn
+        rs.x = floor(ra * sin(theta) + XO + 0.5)
+        rs.y = floor(ro - ra * cos(theta) + YO + 0.5)
+    } else {
+        rs.x = v1
+        rs.y = v2
+        const xn = v1 - XO
+        const yn = ro - v2 + YO
+        ra = sqrt(xn * xn + yn * yn)
+        if (sn < 0.0) ra = -ra
+        let alat = pow((re * sf / ra), (1.0 / sn))
+        alat = 2.0 * atan(alat) - PI * 0.5
+
+        if (abs(xn) <= 0.0) {
+            theta = 0.0
+        } else {
+            if (abs(yn) <= 0.0) {
+                theta = PI * 0.5
+                if (xn < 0.0) theta = -theta
+            } else theta = atan2(xn, yn)
+        }
+        const alon = theta / sn + olon
+        rs.lat = alat * RADDEG
+        rs.lon = alon * RADDEG
+    }
+    return rs
+}
+setInterval(function () {
+    //날씨출력을 위한 코드
+
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    let date = now.getDate();
+    let hour = now.getHours();
+    let minute = now.getMinutes();
+    let monthzero = '';
+    let datezero = '';
+    let hourzero = '';
+    let minutezero = '';
+    if (month < 10) {
+        monthzero += '0'
+    }
+    if (date < 10) {
+        datezero += '0'
+    }
+
+    if (minute < 10) {
+        minutezero += '0'
+    }
+
+    if (minute < 30) {
+        hour = hour - 1;
+        if (hour < 0) {
+            now.setDate(now.getDate() - 1);
+            date = now.getDate();
+            month = now.getMonth() + 1;
+            year = now.getFullYear();
+            hour = 23;
+        }
+    }
+
+    if (hour < 10) {
+        hourzero += '0';
+    }
+
+    let today = year + "" + monthzero + month + "" + datezero + date;
+
+    //해당 지역 날씨 출력
+       let rs = dfsXyConv("toXY", lati, long);
+       let nx = rs.x;
+       let ny = rs.y;
+       $.ajax({
+           type: 'get',
+           url: "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?ServiceKey=" + key + "&base_date=" + today + "&base_time=" + hourzero + hour + "00&nx=" + nx + "&ny=" + ny,
+           data: {
+               numOfRows: 8,
+               pageNo: 1,
+               dataType: "json"
+           },
+           success: function (data) {
+               let info = "";
+               info += "<table class='table table-striped table-hover table-bordered'>";
+               info += "<colgroup>";
+               info += '<col style="width:20%;">';
+               info += '<col style="width:20%;">';
+               info += '</colgroup>'; 
+               info += "<thead>";
+               info += "</thead>";
+               info += "<tbody>";
+               for (let i = 0; i < data.response.body.totalCount; i++) {
+                   if (i == 1) {
+                       text = '습도'
+                       sign = '%'
+                       info += '<tr>';
+                       info += '<td>' + text + '</td>';
+                       info += '<td>' + data.response.body.items.item[i].obsrValue + sign + '</td>';
+                       info += '</tr>';
+                   } else if (i == 2) {
+                       text = '강수량'
+                       sign = 'mm'
+                       info += '<tr>';
+                       info += '<td>' + text + '</td>';
+                       info += '<td>' + data.response.body.items.item[2].obsrValue + sign + '</td>';
+                       info += '</tr>';
+                   } else if (i == 3) {
+                       text = '온도'
+                       sign = '°C'
+                       info += '<tr>';
+                       info += '<td>' + text + '</td>';
+                       info += '<td>' + data.response.body.items.item[i].obsrValue + sign +'</td>';
+                       info += '</tr>';
+                   } else if (i == 5) {
+                       text = '풍향'
+                       direction = ''
+                       if (data.response.body.items.item[i].obsrValue >= 0 && data.response.body.items.item[i].obsrValue < 22.5) {
+                           direction += '북'
+                       } else if (data.response.body.items.item[i].obsrValue >= 22.5 && data.response.body.items.item[i].obsrValue < 45) {
+                           direction += '북북동'
+                       } else if (data.response.body.items.item[i].obsrValue >= 45 && data.response.body.items.item[i].obsrValue < 67.5) {
+                           direction += '북동'
+                       } else if (data.response.body.items.item[i].obsrValue >= 67.5 && data.response.body.items.item[i].obsrValue < 90) {
+                           direction += '동북동'
+                       } else if (data.response.body.items.item[i].obsrValue >= 90 && data.response.body.items.item[i].obsrValue < 112.5) {
+                           direction += '동'
+                       } else if (data.response.body.items.item[i].obsrValue >= 112.5 && data.response.body.items.item[i].obsrValue < 135) {
+                           direction += '동남동'
+
+                       } else if (data.response.body.items.item[i].obsrValue >= 135 && data.response.body.items.item[i].obsrValue < 157.5) {
+                           direction += '남동'
+
+                       } else if (data.response.body.items.item[i].obsrValue >= 157.5 && data.response.body.items.item[i].obsrValue < 180) {
+                           direction += '남남동'
+
+                       } else if (data.response.body.items.item[i].obsrValue >= 180 && data.response.body.items.item[i].obsrValue < 202.5) {
+                           direction += '남'
+                       } else if (data.response.body.items.item[i].obsrValue >= 202.5 && data.response.body.items.item[i].obsrValue < 225) {
+                           direction += '남남서'
+                       }
+                       else if (data.response.body.items.item[i].obsrValue >= 225 && data.response.body.items.item[i].obsrValue < 247.5) {
+                           direction += '남서'
+                       }
+                       else if (data.response.body.items.item[i].obsrValue >= 247.5 && data.response.body.items.item[i].obsrValue < 270) {
+                           direction += '서남서'
+                       }
+                       else if (data.response.body.items.item[i].obsrValue >= 270 && data.response.body.items.item[i].obsrValue < 292.5) {
+                           direction += '서'
+                       }
+                       else if (data.response.body.items.item[i].obsrValue >= 292.5 && data.response.body.items.item[i].obsrValue < 315) {
+                           direction += '서북서'
+                       } else if (data.response.body.items.item[i].obsrValue >= 315 && data.response.body.items.item[i].obsrValue < 337.5) {
+                           direction += '북서'
+                       } else if (data.response.body.items.item[i].obsrValue >= 337.5 && data.response.body.items.item[i].obsrValue < 360) {
+                           direction += '북북서'
+                       }
+                       info += '<tr>';
+                       info += '<td>' + text + '</td>';
+                       info += '<td>' + direction + '</td>';
+                       info += '</tr>';
+                   } else if (i == 7) {
+                       text = '풍속'
+                       sign = 'm/s'
+                       info += '<tr>';
+                       info += '<td>' + text + '</td>';
+                       info += '<td>' + data.response.body.items.item[i].obsrValue + sign + '</td>';
+                       info += '</tr>';
+                   }
+                  
+               }
+               info += '</tbody>';
+               info += '</table>';
+               
+               $(".weather").empty();
+
+               $(".weather").append(info);
+
+           }
+       });
+   
+}, 1000);   
+</script>
+<script>
+    //책정보 출력
+        function getBest() {
+            $.ajax({
+                type: "get",
+                url: "https://dapi.kakao.com/v3/search/book",
+                data: {
+                    query: "별",
+                    target: "title",
+                    size: 8
+                },
+                headers: { Authorization: "KakaoAK 26e253cda867120a05230e16f30c137e" },
+                dataType: "json",
+                success: function (data) {
+                    for (let i = 0; i < data.documents.length; i++) {
+                        let book = "";
+                        if (i % 2 == 0) {
+                            book += '<div class="col-lg-6">';
+                            book += '    <div class="single-rpost d-sm-flex align-items-center" dat-aos-delay="200" data-aos="fade-right" data-aos-duration="800">';
+                            book += '        <div class="post-content">';
+                            book += '            <h3><a href =' + data.documents[i].url + ">" + data.documents[i].title + '</a></h3>';
+                            book += '            <p><a href =' + data.documents[i].url + ">" + data.documents[i].price.toLocaleString('ko-KR') + '</a></p>';
+                            book += '            <a class="post-btn" href="' + data.documents[i].url + '"><i class="fa fa-arrow-right"></i></a>';
+                            book += '        </div>';
+                            book += '        <div class="post-thumb">';
+                            book += '            <img class="img-fluid" src="' + data.documents[i].thumbnail + '" alt="Post 1">';
+                            book += '        </div>';
+                            book += '    </div>';
+                            book += '</div>';
+                        } else {
+                            book += '<div class="col-lg-6">';
+                            book += '    <div class="single-rpost d-sm-flex align-items-center" dat-aos-delay="200" data-aos="fade-left" data-aos-duration="800">';
+                            book += '        <div class="post-thumb">';
+                            book += '            <img class="img-fluid" src="' + data.documents[i].thumbnail + '" alt="Post 1">';
+                            book += '        </div>';
+                            book += '        <div class="post-content">';
+                            book += '            <h3><a href =' + data.documents[i].url + ">" + data.documents[i].title + '</a></h3>';
+                            book += '            <p><a href =' + data.documents[i].url + ">" + data.documents[i].price.toLocaleString('ko-KR') + '</a></p>';
+                            book += '            <a class="post-btn" href="' + data.documents[i].url + '"><i class="fa fa-arrow-right"></i></a>';
+                            book += '        </div>';
+                            book += '    </div>';
+                            book += '</div>';
+                        }
+
+                        $("#daumbook").append(book);
+                    }
+
+                }
+
+            });
+        }
+	
+        $(document).ready(function () {
+            getBest();
+
+        })
+       
+	//카운트다운    
+    setInterval(function () {
+        let standardTime = new Date("2023-12-27 00:00:00");
+        let todayTime = new Date();
+        let getDiffdayzero = '';
+        let getDiffhourzero = '';
+        let getDiffminuteszero = '';
+        let getDiffsecondzero = '';
+        let diff = standardTime-todayTime;
+        let diffDay = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let diffHour = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        let diffMin = Math.floor((diff / (1000 * 60)) % 60);
+        let diffSec = Math.floor(diff / 1000 % 60);
+        if (diffDay < 10) {
+            getDiffdayzero += '0'
+        }
+        if (diffHour < 10) {
+            getDiffhourzero += '0'
+        }
+        if (diffMin < 10) {
+            getDiffminuteszero += '0'
+        }
+        if (diffSec < 10) {
+            getDiffsecondzero += '0'
+        }
+		if(diff <= 0){
+		JavaScript: void(0)
+		let remaintime = "00:00:00:00";
+		document.querySelector("#remain-time").innerHTML = remaintime;
+		document.querySelector("#remain-time").removeAttribute('href');
+		} else {
+		  let remaintime = '<b class="blink">' + getDiffdayzero + diffDay + ':' + getDiffhourzero + diffHour + ':' + getDiffminuteszero + diffMin + ':' + getDiffsecondzero + diffSec + '</b>';
+		  
+        document.querySelector("#remain-time").innerHTML = remaintime;
+		  }
+		  
+    }
+        , 1000);
+</script>
+
+<%@ include file="includes/footer.jsp"%>

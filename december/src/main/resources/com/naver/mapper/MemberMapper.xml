@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.MemberMapper">
+
+	<sql id="criteria">
+		<if test="keyUserName != null and keyUserName != ''">
+			AND username LIKE concat('%',#{keyUserName},'%')
+		</if>
+		<if test="keyDepartment != null and keyDepartment != ''">
+			AND department LIKE concat('%',#{keyDepartment},'%')	
+		</if>
+		<if test="keyAuth != null and keyAuth != ''">
+			AND auth LIKE concat('%',#{keyAuth},'%')	
+		</if>
+	</sql>
+
+
+
+	<resultMap type="com.naver.domain.MemberVO" id="memberMap">
+		<id property="userid" column="userid" />
+		<result property="userid" column="userid" />
+		<result property="userpw" column="userpw" />
+		<result property="userName" column="userName" />
+		
+		<result property="department" column="department" />
+		<result property="position" column="position" />
+		<result property="email" column="email" />
+		<result property="tel" column="tel" />
+		
+		<result property="pfImg" column="pfImg" />
+		
+		<result property="regDate" column="regDate" />
+		<result property="updateDate" column="updateDate" />
+		<result property="enabled" column="enabled" />
+
+		<collection property="authList" resultMap="authMap">
+		</collection>
+
+	</resultMap>
+
+	<resultMap type="com.naver.domain.AuthVO" id="authMap">
+		<result property="userid" column="userid" />
+		<result property="auth" column="auth" />
+	</resultMap>
+
+
+	<select id="read" resultMap="memberMap">
+		SELECT m.*, ma.auth
+		FROM tbl_member m LEFT JOIN tbl_member_auth ma
+		ON (m.userid = ma.userid)
+		WHERE m.userid = #{userid}
+	</select>
+	
+	<select id="getListWithPaging" resultMap="memberMap">
+	
+		SELECT * FROM
+		(SELECT m.*, 
+		( SELECT group_concat(auth) 
+			FROM tbl_member_auth 
+		    WHERE userid = m.userid ) auth
+		FROM tbl_member m ) tmp
+		WHERE 1
+		
+		<include refid="criteria"></include>
+		
+		ORDER BY username DESC 
+		LIMIT #{paging} , #{amount}
+		
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+	
+		SELECT count(*) 
+		FROM
+			(SELECT m.*, 
+			( SELECT group_concat(auth) 
+				FROM tbl_member_auth 
+			    WHERE userid = m.userid ) auth
+			FROM tbl_member m ) tmp
+		WHERE 1
+		
+		<include refid="criteria"></include>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tbl_member (userid, userpw, department, position,username, email, tel, pfImg)
+		VALUES (#{userid}, #{userpw}, #{department}, #{position}, #{userName}, #{email}, #{tel}, #{pfImg})
+	</insert>
+	
+	<update id="update">
+		UPDATE tbl_member SET
+			userName = #{userName},
+			department = #{department},
+			position = #{position},
+			email = #{email},
+			tel = #{tel},
+			pfImg = #{pfImg},
+			enabled = #{enabled},
+			updatedate = now()
+		WHERE userid = #{userid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM tbl_member
+		WHERE userid = #{userid}
+	</delete>
+	
+</mapper>
+
+
+

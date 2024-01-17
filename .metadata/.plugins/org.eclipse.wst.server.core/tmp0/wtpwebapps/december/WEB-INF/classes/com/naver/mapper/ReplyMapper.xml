@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.ReplyMapper">
+
+	<insert id="insert">
+		INSERT INTO tbl_reply(bno, reply, replyer, boardId)
+		VALUES(#{bno}, #{reply}, #{replyer}, #{boardId});
+	</insert>
+	
+	<select id="read" resultType="com.naver.domain.ReplyVO">
+		SELECT * FROM tbl_reply WHERE rno = #{rno}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM tbl_reply WHERE rno = #{rno}
+	</delete>
+	
+	
+	<delete id="deletes">
+		DELETE FROM tbl_reply WHERE bno = #{bno}
+	</delete>
+	
+	<update id="update">
+		UPDATE tbl_reply SET reply = #{reply} , updateDate = now()
+		WHERE rno = #{rno}
+	</update>
+	
+	<select id="getListWithPaging" resultType="com.naver.domain.ReplyVO">
+		SELECT * 
+		FROM tbl_reply 
+		WHERE bno = #{bno} 
+		ORDER BY rno ASC
+		limit #{cri.paging}, #{cri.amount}
+	</select>
+	
+	<select id="getCountByBno" resultType="int">
+		SELECT count(*) FROM tbl_reply WHERE bno = #{bno}
+	</select>
+	
+</mapper>
+
+
+

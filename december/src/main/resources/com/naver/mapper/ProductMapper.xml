@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.ProductMapper">
+
+	<select id="get" resultType="com.naver.domain.ProductVO">
+	 select * from tbl_product WHERE productCode = #{productCode}
+	</select>
+	
+	<update id="update">
+		update tbl_product SET
+		productName = #{productName},
+		productImg = #{productImg},
+		manufacturer = #{manufacturer},
+		spec = #{spec},
+		unitPrice = #{unitPrice}
+		where productCode = #{productCode}
+	</update>
+	<select id="getListWithPaging" resultType="com.naver.domain.ProductVO">
+	select * from tbl_product ORDER by productName
+	LIMIT #{paging},#{amount}
+	</select>
+	
+	<select id="getProductNameList" resultType="com.naver.domain.ProductVO">
+		SELECT * FROM tbl_product 
+		WHERE productName LIKE concat('%', #{productName}, '%') 		
+		ORDER BY productName
+		LIMIT 0, 10
+	</select>
+	
+	<select id="getTotalCount" resultType="long">
+	select count(*) from tbl_product ORDER BY productName
+	</select>
+	
+	<insert id="insert">
+		insert into tbl_product (productCode,productName,productImg ,manufacturer ,spec,unitPrice)
+		values (#{productCode},#{productName},#{productImg}, #{manufacturer}, #{spec}, #{unitPrice})
+	</insert>
+	
+	<select id="getMakePCode" resultType="string">
+		select concat('P', LPAD((SELECT count(*)+1 from tbl_product),2,0))
+	</select>
+	
+	
+
+</mapper>
+
+
+

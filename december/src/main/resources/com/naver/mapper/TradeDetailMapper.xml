@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.TradeDetailMapper">
+	
+
+	<insert id="insert">
+		insert into tbl_tradedetail (refTno,tradeDate, productCode,productName, qty, unitPrice, assortment, remarks)
+		values (#{refTno}, #{tradeDate}, #{productCode},#{productName},#{qty}, #{unitPrice},#{assortment},#{remarks})
+	</insert>
+	
+	<select id="getList" resultType="com.naver.domain.TradeDetailVO">
+	select td.* ,(select spec from tbl_product WHERE productCode = td.productCode) spec
+	from tbl_tradeDetail td 
+	WHERE refTno = #{tno} 
+	order by seq
+	</select>
+	
+	<delete id="delete">
+	delete from tbl_tradedetail
+	where refTno = #{tno} 
+	</delete>
+	
+	
+</mapper>
+
+
+

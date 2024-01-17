@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.TradeMapper">
+	<select id="getList" resultType="com.naver.domain.TradeVO">
+	<![CDATA[
+	select * from tbl_trade WHERE tno > 0 ORDER BY tno DESC 
+	]]>
+	</select>
+
+
+	<select id="getTotalCount" resultType="int">
+
+		select count(*) from tbl_trade
+		where 1
+	
+
+	</select>
+
+	<select id="getListWithPaging"
+		resultType="com.naver.domain.TradeVO">
+
+		select b.*
+		from tbl_trade b
+		where 1
+	
+
+		ORDER BY tno DESC
+		LIMIT #{paging} , #{amount}
+
+	</select>
+
+	<insert id="insert">
+		insert into tbl_trade (supplyer	, producter, subAmount,totalTax, finalAmount, receipt)
+		values (#{supplyer}, #{producter}, #{subAmount},#{totalTax},#{finalAmount}, #{receipt})
+	</insert>
+
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="tno" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into tbl_trade (supplyer	, producter, subAmount,totalTax, finalAmount, receipt)
+		values (#{supplyer}, #{producter}, #{subAmount},#{totalTax},#{finalAmount}, #{receipt})
+	</insert>
+
+	<select id="read" resultType="com.naver.domain.TradeVO">
+	<![CDATA[
+	select * from tbl_trade WHERE tno = #{tno}
+	]]>
+	</select>
+
+
+	
+
+	<delete id="delete">
+		delete from tbl_trade WHERE tno = #{tno}
+	</delete>
+
+	<update id="update">
+	update tbl_trade
+	set 
+	supplyer =	#{supplyer},
+	subAmount = #{subAmount},
+	totalTax =	#{totalTax},
+	finalAmount =	#{finalAmount},
+	receipt = #{receipt}
+	where tno = #{tno}
+	</update>
+
+
+	
+	
+</mapper>
+
+
+

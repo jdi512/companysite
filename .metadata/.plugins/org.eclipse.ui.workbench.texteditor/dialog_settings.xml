@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="세"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="true"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="세"/>
+			<item value="${idx}"/>
+			<item value="${i}"/>
+			<item value="${I}"/>
+			<item value="$i}"/>
+			<item value="cborder"/>
+			<item value="bout"/>
+			<item value="ttxt$[i}${i}"/>
+			<item value="cborder${i}${i}"/>
+			<item value="ttxt"/>
+			<item value="cborder2"/>
+			<item value="company"/>
+			<item value="합계"/>
+			<item value="bno"/>
+			<item value="board"/>
+		</list>
+		<list key="replacehistory">
+			<item value="${idx == 0?&apos;&apos;:&apos;2&apos;}"/>
+			<item value="${idx}"/>
+			<item value="bout${i}"/>
+			<item value="ttxt${i}"/>
+			<item value="cborder${i}"/>
+			<item value="producter"/>
+			<item value="tno"/>
+			<item value="trade"/>
+			<item value="TradeCriteria"/>
+			<item value="Trade"/>
+			<item value="com.naver"/>
+			<item value="Log"/>
+			<item value="log"/>
+			<item value=""/>
+			<item value="resources/dist/"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="593"/>
+		<item key="DIALOG_Y_ORIGIN" value="447"/>
+		<item key="DIALOG_WIDTH" value="340"/>
+		<item key="DIALOG_HEIGHT" value="454"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+</section>

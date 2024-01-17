@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mqapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.mapper.CompanyMapper">
+
+	<select id="get" resultType="com.naver.domain.CompanyVO">
+	 select * from tbl_company WHERE companyName = #{companyName}
+	</select>
+	<select id="getCompanyInfo" resultType="com.naver.domain.CompanyVO">
+	 select companyName,taxId, ceoName,companySeal,address,tel,(SELECT distinct MiddleName from  tbl_master where subCode = bizType) bizType,(SELECT detailedName from tbl_master where detailedCode = bizItem) bizItem from tbl_company WHERE companyName = #{companyName}
+	</select>
+	<update id="update">
+		update tbl_company SET
+		taxId = #{taxId},
+		ceoName  = #{ceoName},
+		companySeal = #{companySeal},
+		address = #{address},
+		tel = #{tel},
+		bizType = #{bizType},
+		bizItem = #{bizItem}
+		where companyName = #{companyName}
+	</update>
+	<select id="getListWithPaging" resultType="com.naver.domain.CompanyVO">
+	select * from tbl_company ORDER by companyName
+	LIMIT #{paging},#{amount}
+	</select>
+	
+	<select id="getCompanyList" resultType="com.naver.domain.CompanyVO">
+		SELECT * FROM tbl_company 
+		WHERE companyName LIKE concat('%', #{supplyer}, '%') 		
+		ORDER BY companyName
+		LIMIT 0, 10
+	</select>
+	
+	
+	<select id="getTotalCount" resultType="long">
+	select count(*) from tbl_company ORDER BY companyName
+	</select>
+	
+	<insert id="insert">
+		insert into tbl_company (companyName,taxId,ceoName ,companySeal ,address,tel,bizType,bizItem)
+		values (#{companyName},#{taxId},#{ceoName}, #{companySeal}, #{address}, #{tel},#{bizType}, #{bizItem})
+	</insert>
+	
+	
+
+</mapper>
+
+
+
