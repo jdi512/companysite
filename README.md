@@ -10,6 +10,8 @@ spring framework를 통해 만들었습니다. (not spring boot)
 
 ![image](https://github.com/jdi512/companysite/assets/156891813/1adbbc8b-12d1-4eba-9fe1-f517ba0fa197)
 (메인 페이지)
+![image](https://github.com/jdi512/companysite/assets/156891813/05fa03de-8ceb-409d-b2e4-afde8c81af80)
+(로그인시 메인 페이지)
 ![image](https://github.com/jdi512/companysite/assets/156891813/32b9988c-a108-4b9b-8300-36426359add8)
 (로그인 페이지)
 ![image](https://github.com/jdi512/companysite/assets/156891813/654c56c9-3275-4a81-9a58-aa29efec8cc6)
