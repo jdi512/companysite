@@ -7,6 +7,8 @@ spring framework를 통해 만들었습니다. (not spring boot)
 3. december - 본 파일 css, java, jsp 파일 있는 곳 
 4. server - tomcat 설정(8.0.79)
 
+login시엔 id: admin  password : 1111을 입력하시면 됩니다.
+
 사용한 언어
 
 springboot - 이 파일을 만들 때 썼던 툴
