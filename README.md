@@ -4,9 +4,14 @@ spring framework를 통해 만들었습니다. (not spring boot)
 
 1. database - mysql 8.0로 만들었으며, 해당 사이트를 돌리기 위한 datebase 자료입니다.
 2. tomcat.zip - tomcat 8.0.79입니다. 만약 tomcat 관련으로 에러가 난다면 이 압축파일을 풀어서 쓰면 됩니다.
-3. december - 본 파일 css, java, jsp 파일 있는 곳 
+3. december - 본 파일 css, java, jsp 파일 있는 곳 (
 4. server - tomcat 설정(8.0.79)
 
+사용한 언어
+java - VO, controller, service, mapper
+ajax/jquery - reply, 거래명세서 입력할 때 물품명 검색 시 출력시, board/index.jsp(localhost home으로 리다이렉트)에 책 목록 출력시, diary 일정관리할 때 
+javascript - admin(관리자 화면)과 home(메인 화면)에서 시간 출력할 떄와 admin에서 머물 수 있는 남은 시간 출력할 때(끝나면 자동으로 로그아웃)
+css - 시계에 blink 효과줄 때
 
 ![image](https://github.com/jdi512/companysite/assets/156891813/1adbbc8b-12d1-4eba-9fe1-f517ba0fa197)
 (메인 페이지)
