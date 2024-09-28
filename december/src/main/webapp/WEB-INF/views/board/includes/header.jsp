@@ -107,8 +107,6 @@
 						<li class="nav-item"><a class="nav-link" href="/">메인으로</a></li>
 						<li class="nav-item"><a class="nav-link" href="/about">회사
 								주소</a></li>
-						<li class="nav-item"><a class="nav-link" href="/service">회사
-								서비스</a></li>
 						<li class="nav-item"><a class="nav-link" href="/introduce">회사
 								소개</a></li>
 					</ul>
@@ -137,15 +135,6 @@
 										알고 싶으시다면</h1>
 									<a data-aos="fade-right" data-aos-delay="900" href="/about"
 										class="btn btn-primary">회사 위치 보기</a>
-								</div>
-							</div>
-							<div></div>
-							<div class="swiper-slide slide-content d-flex align-items-center">
-								<div class="single-slide">
-									<h1 data-aos="fade-right" data-aos-delay="200">서비스를 받고
-										싶으시다면</h1>
-									<a data-aos="fade-right" data-aos-delay="900" href="/service"
-										class="btn btn-primary">서비스 보기</a>
 								</div>
 							</div>
 							<div></div>
