@@ -38,7 +38,6 @@
                             <h6 class="widget-tiltle">메뉴 이동</h6>
                             <a href="/">HOME</a>
                             <a href="/about">ABOUT</a>
-                            <a href="/service">SERVICE</a>
                             <a href="/introduce">INTRODUCE</a>
                         </div>
                     </div>
