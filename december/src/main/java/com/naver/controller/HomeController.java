@@ -38,12 +38,6 @@ public class HomeController {
 		return "board/about";
 	}
 	
-	
-	@GetMapping("/service")
-	public String service() {
-	
-		return "board/service";
-	}
 	@GetMapping("/introduce")
 	public String introduce() {
 	
