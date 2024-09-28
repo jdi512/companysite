@@ -78,7 +78,7 @@ setInterval(function () {
        Secondzero += '0'
      }
 
-     let time = year + '-' + Monthzero + month + '-' + Datezero + date + ' (' + week + ') ' + Hourzero + hour + '<b class="blink">:</b>' + Minutezero + minute + '<b class="blink">:</b>' + Secondzero + second;
+     let time = year + '-' + Monthzero + month + '-' + Datezero + date + ' (' + week + ')<br> ' + Hourzero + hour + '<b class="blink">:</b>' + Minutezero + minute + '<b class="blink">:</b>' + Secondzero + second;
 
      document.querySelector('#local-time').innerHTML = time;
   }, 1000);
