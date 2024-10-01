@@ -1,23 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="includes/header.jsp"%>
-
-<section class="cta" data-aos="fade-up" data-aos-delay="0">
-	<div class="container">
-		<div
-			class="cta-content d-xl-flex align-items-center justify-content-around text-center text-xl-left">
-			<div class="content" data-aos="fade-right" data-aos-delay="200">
-				<h2>회사 소식을 보고 싶다면</h2>
-				<p>지금 바로 회사 소식을 구독하세요</p>
-			</div>
-			<div class="subscribe-btn" data-aos="fade-left" data-aos-delay="400"
-				data-aos-offset="0">
-				<a href="/about" class="btn btn-primary">뉴스레터 구독하기</a>
-			</div>
-		</div>
-	</div>
-</section>
-
 <section class="testimonial-and-clients">
 	<div class="container">
 		<div class="testimonials">
@@ -63,11 +46,11 @@
 		<div
 			class="cta-content d-xl-flex align-items-center justify-content-around text-center text-xl-left">
 			<div class="content" data-aos="fade-right" data-aos-delay="200">
-				<h2>저희 회사의 소식을 알고 싶다면</h2>
+				<h2>저희 회사를 자세히 알고 싶다면</h2>
 			</div>
 			<div class="subscribe-btn" data-aos="fade-left" data-aos-delay="400"
 				data-aos-offset="0">
-				<a href="/about" class="btn btn-primary">회사 소식 구독</a>
+				<a href="/introduce" class="btn btn-primary">회사 소개 보기</a>
 			</div>
 		</div>
 	</div>
@@ -131,43 +114,44 @@
         })
        
 	//카운트다운    
-    setInterval(function () {
-        let standardTime = new Date("2023-12-27 00:00:00");
-        let todayTime = new Date();
-        let getDiffdayzero = '';
-        let getDiffhourzero = '';
-        let getDiffminuteszero = '';
-        let getDiffsecondzero = '';
-        let diff = standardTime-todayTime;
-        let diffDay = Math.floor(diff / (1000 * 60 * 60 * 24));
-        let diffHour = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        let diffMin = Math.floor((diff / (1000 * 60)) % 60);
-        let diffSec = Math.floor(diff / 1000 % 60);
-        if (diffDay < 10) {
-            getDiffdayzero += '0'
-        }
-        if (diffHour < 10) {
-            getDiffhourzero += '0'
-        }
-        if (diffMin < 10) {
-            getDiffminuteszero += '0'
-        }
-        if (diffSec < 10) {
-            getDiffsecondzero += '0'
-        }
-		if(diff <= 0){
-		JavaScript: void(0)
-		let remaintime = "00:00:00:00";
-		document.querySelector("#remain-time").innerHTML = remaintime;
-		document.querySelector("#remain-time").removeAttribute('href');
-		} else {
-		  let remaintime = '<b class="blink">' + getDiffdayzero + diffDay + ':' + getDiffhourzero + diffHour + ':' + getDiffminuteszero + diffMin + ':' + getDiffsecondzero + diffSec + '</b>';
-		  
-        document.querySelector("#remain-time").innerHTML = remaintime;
-		  }
-		  
-    }
-        , 1000);
+function updateRemainingTime() {
+       let standardTime = new Date("2024-10-07 00:00:00");
+       let todayTime = new Date();
+       let getDiffdayzero = '';
+       let getDiffhourzero = '';
+       let getDiffminuteszero = '';
+       let getDiffsecondzero = '';
+       let diff = standardTime-todayTime;
+       let diffDay = Math.floor(diff / (1000 * 60 * 60 * 24));
+       let diffHour = Math.floor((diff / (1000 * 60 * 60)) % 24);
+       let diffMin = Math.floor((diff / (1000 * 60)) % 60);
+       let diffSec = Math.floor(diff / 1000 % 60);
+       if (diffDay < 10) {
+           getDiffdayzero += '0'
+       }
+       if (diffHour < 10) {
+           getDiffhourzero += '0'
+       }
+       if (diffMin < 10) {
+           getDiffminuteszero += '0'
+       }
+       if (diffSec < 10) {
+           getDiffsecondzero += '0'
+       }
+	if(diff <= 0){
+	JavaScript: void(0)
+	let remaintime = "00:00:00:00";
+	document.querySelector("#remain-time").innerHTML = remaintime;
+	document.querySelector("#remain-time").removeAttribute('href');
+	} else {
+	  let remaintime = '' + getDiffdayzero + diffDay + '<b class="blink">:</b>' + getDiffhourzero + diffHour + '<b class="blink">:</b>' + getDiffminuteszero + diffMin + '<b class="blink">:</b>' + getDiffsecondzero + diffSec;
+	  
+       document.querySelector("#remain-time").innerHTML = remaintime;
+	  }
+	  
+   }
+// 1초마다 updateRemainingTime 함수 실행
+setInterval(updateRemainingTime, 1000);
 </script>
 
 <%@ include file="includes/footer.jsp"%>
