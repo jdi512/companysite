@@ -32,10 +32,10 @@ public class HomeController {
 	
 		return "board/index";
 	}
-	@GetMapping("/about")
-	public String about() {
+	@GetMapping("/location")
+	public String location() {
 	
-		return "board/about";
+		return "board/location";
 	}
 	
 	@GetMapping("/introduce")
