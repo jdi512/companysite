@@ -27,7 +27,6 @@
 <link rel="stylesheet" href="/resources/dist/css/style.css">
 <link rel="stylesheet" href="/resources/dist/css/responsive.css">
 
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="/resources/dist/js/jquery-3.3.1.js"></script>
@@ -105,8 +104,8 @@
 						</sec:authorize>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="/">메인으로</a></li>
-						<li class="nav-item"><a class="nav-link" href="/about">회사
-								주소</a></li>
+						<li class="nav-item"><a class="nav-link" href="/location">회사
+								위치</a></li>
 						<li class="nav-item"><a class="nav-link" href="/introduce">회사
 								소개</a></li>
 					</ul>
@@ -133,7 +132,7 @@
 								<div class="single-slide">
 									<h1 data-aos="fade-right" data-aos-delay="200">저희 회사의 위치를
 										알고 싶으시다면</h1>
-									<a data-aos="fade-right" data-aos-delay="900" href="/about"
+									<a data-aos="fade-right" data-aos-delay="900" href="/location"
 										class="btn btn-primary">회사 위치 보기</a>
 								</div>
 							</div>
