@@ -37,16 +37,14 @@
                         <div class="single-widget tags-widget" data-aos="fade-up" data-aos-delay="800">
                             <h6 class="widget-tiltle">메뉴 이동</h6>
                             <a href="/">HOME</a>
-                            <a href="/about">ABOUT</a>
+                            <a href="/location">LOCATION</a>
                             <a href="/introduce">INTRODUCE</a>
                         </div>
                     </div>
                 </div>
 </footer>    
 <script>
-
-  
-setInterval(function () {
+function UpdateLocalTime () {
 	 let now = new Date();
      let year = now.getFullYear();
      let month = now.getMonth() + 1;
@@ -77,10 +75,10 @@ setInterval(function () {
        Secondzero += '0'
      }
 
-     let time = year + '-' + Monthzero + month + '-' + Datezero + date + ' (' + week + ')<br> ' + Hourzero + hour + '<b class="blink">:</b>' + Minutezero + minute + '<b class="blink">:</b>' + Secondzero + second;
+     let time = year + '-' + Monthzero + month + '-' + Datezero + date + ' (' + week + ')<br>' + Hourzero + hour + '<b class="blink">:</b>' + Minutezero + minute + '<b class="blink">:</b>' + Secondzero + second;
 
      document.querySelector('#local-time').innerHTML = time;
-  }, 1000);
-</script>
-    <!--Plugins-->
-    
+  };
+  // 1초마다 UpdateLocalTime 함수 실행
+  setInterval(UpdateLocalTime, 1000);
+ </script>
